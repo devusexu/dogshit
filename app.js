@@ -1,13 +1,13 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const express = require('express');
-const authRouter = require('./routes/auth');
-const taskRouter = require('./routes/task');
-const isAuthenticated = require('./middlewares/authenticator');
-const { BadRequestError, AuthenticationError, NotFoundError, ConflictError, CustomError } = require('./utils/error');
+const authRouter = require('./src/routes/auth');
+const taskRouter = require('./src/routes/task');
+const isAuthenticated = require('./src/middlewares/authenticator');
+const { CustomError } = require('./utils/error');
 const app = express();
 
-// assuem request body is json object 
+// assume request body is json object 
 app.use(express.json());
 
 // const fs = require('fs');

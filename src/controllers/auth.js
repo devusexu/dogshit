@@ -1,48 +1,16 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const Joi = require('joi');
 const User = require('../models/user');
-const { AuthenticationError, NotFoundError, ConflictError } = require('../utils/error');
-
-const baseRule = {
-    password: Joi.string()
-        .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
-        .required(),
-
-    email: Joi.string()
-        .email()
-        .required()
-};
-
-const usernameRule = Joi.string()
-        .min(3)
-        .max(30)
-        .required();
-
-const registerSchema = Joi.object({
-    ...baseRule,
-    username: usernameRule
-});
-
-const loginSchema = Joi.object({
-    ...baseRule,
-});
+const { AuthenticationError, NotFoundError, ConflictError } = require('../../utils/error');
 
 async function register(req, res, next) {
     try {
-        // To return validation error of all fields, set abortEarly to false:
-        // const { error, value } = registerSchema.validate(req.body, { abortEarly: false });
-        const { error , value } = registerSchema.validate(req.body);
-        if (error) {
-            throw error;
-        }
+        req.validatedData.email = req.validatedData.email.toLowerCase();
 
-        value.email = value.email.toLowerCase();
-
-        const existingUser = await User.findOne({ email: value.email });
+        const existingUser = await User.findOne({ email: req.validatedData.email });
         if (existingUser) throw new ConflictError('Email already exists');
      
-        const createdUser = await User.create(value);     
+        const createdUser = await User.create(req.validatedData);     
         return res.status(201).json(createdUser);
     } catch (error) {
         next(error);   
@@ -51,12 +19,7 @@ async function register(req, res, next) {
 
 async function login(req, res, next) {
     try {
-        const { error , value } = loginSchema.validate(req.body); 
-        if (error) {
-            throw error;
-        }
-
-        const { email, password } = value;
+        const { email, password } = req.validatedData;
         // Check if the user exists in the database
         const user = await User.findOne({ email: email.toLowerCase() });
         if (!user) {

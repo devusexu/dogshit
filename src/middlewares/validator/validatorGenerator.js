@@ -1,6 +1,3 @@
-const taskSchema = require('../utils/joi-schema/task');
-// haven't refactor validation for user's login and register
-
 function validatorGenerator(schema) {
     return (req, res, next) => {
         const { error, value } = schema.validate(req.body);
@@ -12,6 +9,4 @@ function validatorGenerator(schema) {
     }
 }
 
-const taskValidator = validatorGenerator(taskSchema);
-
-module.exports = { taskValidator, };
+module.exports = validatorGenerator;

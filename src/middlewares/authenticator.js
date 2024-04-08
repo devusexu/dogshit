@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
-const { BadRequestError, AuthenticationError } = require('../utils/error');
+const { BadRequestError, AuthenticationError } = require('../../utils/error');
 
 function isAuthenticated(req, res, next) {
     try {
-        const authHeader = req.headers['authorization']
-        const token = authHeader && authHeader.split(' ')[1]
+        const authHeader = req.headers['authorization'];
+        const token = authHeader && authHeader.startsWith('Bearer ') && authHeader.split(' ')[1];
 
         if (!token) throw new BadRequestError('Token should be included in the authorization header');
 
@@ -16,7 +16,7 @@ function isAuthenticated(req, res, next) {
             next();
         })
     } catch (error) {
-        next(error)
+        next(error);
     }
 }
 

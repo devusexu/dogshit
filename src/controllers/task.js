@@ -1,5 +1,5 @@
 const Task = require('../models/task');
-const { NotFoundError } = require('../utils/error');
+const { NotFoundError } = require('../../utils/error');
 
 async function index(req, res, next) {
     try {
