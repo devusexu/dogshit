@@ -1,13 +1,14 @@
-require('dotenv').config();
-const mongoose = require('mongoose');
-const express = require('express');
-const authRouter = require('./src/routes/auth');
-const taskRouter = require('./src/routes/task');
-const isAuthenticated = require('./src/middlewares/authenticator');
-const errorHandler = require('./src/middlewares/errorHandler');
+require("dotenv").config();
+const mongoose = require("mongoose");
+const express = require("express");
+const authRouter = require("./src/routes/auth");
+const taskRouter = require("./src/routes/task");
+const isAuthenticated = require("./src/middlewares/authenticator");
+const errorHandler = require("./src/middlewares/errorHandler");
+
 const app = express();
 
-// assume request body is json object 
+// assume request body is json object
 app.use(express.json());
 
 // const fs = require('fs');
@@ -15,18 +16,19 @@ app.use(express.json());
 // const YAML = require('yaml');
 
 // const file = fs.readFileSync('./swagger.yaml', 'utf8');
-// const swaggerDocument = YAML.parse(file); 
+// const swaggerDocument = YAML.parse(file);
 
 // app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-main().catch(console.log);
 async function main() {
-    await mongoose.connect(process.env.MONGODB_URI);
-    console.log('connect successfully');
+  await mongoose.connect(process.env.MONGODB_URI);
+  console.log("connect successfully");
 }
 
-app.use('/api/users', authRouter);
-app.use('/api/tasks', isAuthenticated, taskRouter);
+main().catch(console.log);
+
+app.use("/api/users", authRouter);
+app.use("/api/tasks", isAuthenticated, taskRouter);
 
 app.use(errorHandler);
 

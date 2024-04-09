@@ -13,7 +13,7 @@ paths:
       summary: Create a user.
       requestBody:
         required: true
-        content: 
+        content:
           application/json:
             schema:
               type: object
@@ -28,16 +28,16 @@ paths:
         "201":
           description: A user object.
           content:
-            application/json: 
-              schema: 
+            application/json:
+              schema:
                 type: object
                 properties:
-                  id: 
+                  id:
                     type: integer
                     # format: int64
                     example: 4
                   username:
                     type: string
                     example: Obama
-        '400': 
+        "400":
           description: The specified user ID is invalid (not a number).

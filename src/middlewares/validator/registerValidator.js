@@ -1,4 +1,4 @@
-const validatorGenerator = require('./validatorGenerator');
-const { registerSchema } = require('../../../joi-schemas/user');
+const validatorGenerator = require("./validatorGenerator");
+const { registerSchema } = require("../../../joi-schemas/user");
 
 module.exports = validatorGenerator(registerSchema);
