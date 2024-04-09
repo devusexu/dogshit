@@ -1,5 +1,5 @@
-const Task = require("../models/task");
-const { NotFoundError } = require("../../utils/error");
+const { Task } = require("../models");
+const { NotFoundError } = require("../utils/error");
 
 async function index(req, res, next) {
   try {
@@ -36,6 +36,10 @@ async function update(req, res, next) {
       { description, done },
       { new: true },
     );
+
+    if (!updatedTask) {
+      throw new NotFoundError("Task not found");
+    }
 
     res.json(updatedTask);
   } catch (error) {

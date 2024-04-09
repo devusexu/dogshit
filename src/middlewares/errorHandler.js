@@ -1,4 +1,4 @@
-const { CustomError } = require("../../utils/error");
+const { CustomError } = require("../utils/error");
 
 module.exports = (err, req, res, next) => {
   console.error(err);

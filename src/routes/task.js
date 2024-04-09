@@ -2,8 +2,10 @@ const express = require("express");
 
 const router = express.Router();
 
-const { index, create, update, destroy } = require("../controllers/task");
-const taskValidator = require("../middlewares/validator/taskValidator");
+const {
+  taskController: { index, create, update, destroy },
+} = require("../controllers");
+const { taskValidator } = require("../middlewares");
 
 router.get("/", index);
 router.post("/", taskValidator, create);

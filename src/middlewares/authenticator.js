@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { BadRequestError, AuthenticationError } = require("../../utils/error");
+const { BadRequestError, AuthenticationError } = require("../utils/error");
 
 function isAuthenticated(req, res, next) {
   try {

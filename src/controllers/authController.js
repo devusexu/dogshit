@@ -1,11 +1,11 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const User = require("../models/user");
+const { User } = require("../models");
 const {
   AuthenticationError,
   NotFoundError,
   ConflictError,
-} = require("../../utils/error");
+} = require("../utils/error");
 
 async function register(req, res, next) {
   try {

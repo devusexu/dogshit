@@ -1,10 +1,9 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const express = require("express");
-const authRouter = require("./src/routes/auth");
-const taskRouter = require("./src/routes/task");
-const isAuthenticated = require("./src/middlewares/authenticator");
-const errorHandler = require("./src/middlewares/errorHandler");
+const { authRouter, taskRouter } = require("./routes");
+const isAuthenticated = require("./middlewares/authenticator");
+const errorHandler = require("./middlewares/errorHandler");
 
 const app = express();
 
