@@ -1,13 +1,14 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const express = require("express");
+const helmet = require("helmet");
 const { authRouter, taskRouter } = require("./routes");
 const isAuthenticated = require("./middlewares/authenticator");
 const errorHandler = require("./middlewares/errorHandler");
 
 const app = express();
 
-// assume request body is json object
+app.use(helmet());
 app.use(express.json());
 
 // const fs = require('fs');
