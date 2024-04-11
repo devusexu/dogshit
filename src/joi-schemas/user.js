@@ -8,7 +8,7 @@ const baseRule = {
   email: Joi.string().email().required(),
 };
 
-const usernameRule = Joi.string().min(3).max(30).required();
+const usernameRule = Joi.string().alphanum().min(3).max(30).required();
 
 const registerSchema = Joi.object({
   ...baseRule,

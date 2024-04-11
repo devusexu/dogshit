@@ -9,8 +9,6 @@ const {
 
 async function register(req, res, next) {
   try {
-    req.validatedData.email = req.validatedData.email.toLowerCase();
-
     const existingUser = await User.findOne({ email: req.validatedData.email });
     if (existingUser) throw new ConflictError("Email already exists");
 
@@ -25,7 +23,7 @@ async function login(req, res, next) {
   try {
     const { email, password } = req.validatedData;
     // Check if the user exists in the database
-    const user = await User.findOne({ email: email.toLowerCase() });
+    const user = await User.findOne({ email });
     if (!user) {
       throw new NotFoundError("User not found");
     }
