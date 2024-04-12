@@ -1,6 +1,7 @@
 // Import and re-export middleware modules
-const authenticator = require("./authenticator");
+const isAuthenticated = require("./authenticator");
 const errorHandler = require("./errorHandler");
+const { limiter, loginLimiter } = require("./rateLimiter");
 const {
   loginValidator,
   registerValidator,
@@ -8,8 +9,10 @@ const {
 } = require("./validators");
 
 module.exports = {
-  authenticator,
+  isAuthenticated,
   errorHandler,
+  limiter,
+  loginLimiter,
   loginValidator,
   registerValidator,
   taskValidator,

@@ -3,11 +3,11 @@ const mongoose = require("mongoose");
 const express = require("express");
 const helmet = require("helmet");
 const { authRouter, taskRouter } = require("./routes");
-const isAuthenticated = require("./middlewares/authenticator");
-const errorHandler = require("./middlewares/errorHandler");
+const { limiter, isAuthenticated, errorHandler } = require("./middlewares");
 
 const app = express();
 
+app.use(limiter);
 app.use(helmet());
 app.use(express.json());
 
