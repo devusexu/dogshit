@@ -1,5 +1,4 @@
 require("dotenv").config();
-const mongoose = require("mongoose");
 const express = require("express");
 const helmet = require("helmet");
 const { authRouter, taskRouter } = require("./routes");
@@ -20,16 +19,9 @@ app.use(express.json());
 
 // app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-async function main() {
-  await mongoose.connect(process.env.MONGODB_URI);
-  console.log("connect successfully");
-}
-
-main().catch(console.log);
-
 app.use("/api/users", authRouter);
 app.use("/api/tasks", isAuthenticated, taskRouter);
 
 app.use(errorHandler);
 
-app.listen(3000);
+module.exports = app;

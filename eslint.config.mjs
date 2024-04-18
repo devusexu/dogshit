@@ -15,8 +15,30 @@ const compat = new FlatCompat({
 });
 
 export default [
-  { files: ["**/*.js"], languageOptions: { sourceType: "commonjs" } },
-  { languageOptions: { globals: globals.node } },
+  {
+    files: ["**/*.js"],
+    languageOptions: {
+      sourceType: "commonjs",
+    },
+  },
+  {
+    languageOptions: {
+      globals: {
+        ...globals.mocha,
+        ...globals.node,
+      },
+    },
+  },
   ...compat.extends("airbnb"),
+  {
+    rules: {
+      "import/no-extraneous-dependencies": [
+        "warn",
+        {
+          devDependencies: ["src/test/**/*"],
+        },
+      ],
+    },
+  },
   eslintConfigPrettier,
 ];
